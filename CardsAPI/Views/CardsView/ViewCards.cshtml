@@ -1,0 +1,73 @@
+﻿@model IEnumerable<CardsAPI.APIModels.CardAPIModel>
+
+@{
+    ViewData["Title"] = "ViewCards";
+    string[] ImagePaths = Directory.GetFiles("wwwRoot/ImageResources/");
+    string imageSource = "~/" + ImagePaths[0];
+    string imageUrl = "/ImageResources/hearts_ace.png";
+}
+
+<h1>ViewCards</h1>
+
+<p>
+    <a asp-action="Create">Create New</a>
+    <p>@(Model.ToList()[0].ImageUrl)</p>
+    <p>@(imageUrl)</p>
+</p>
+<img height="200px" width="200px" src="@imageUrl" />
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Suit)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Value)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.IsHidden)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ImageUrl)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.Suit)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Value)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.IsHidden)
+            </td>
+            <td>
+                <img height="200px" width="200px" src="@item.ImageUrl"/>
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+        
+}
+    </tbody>
+    
+</table>
+
+@section scripts {
+            <link href="~/ImageResources/"/>
+    <style>
+        .image {
+            background-color: red;
+            min-height: 200px;
+            min-width:200px;
+            background: url(@imageSource);
+        }
+    </style>
+}
